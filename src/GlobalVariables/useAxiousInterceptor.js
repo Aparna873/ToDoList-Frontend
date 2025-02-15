@@ -4,7 +4,6 @@ import { useContext, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { GlobalContext } from "../App";
 
-
 const useAxiosInterceptor = () => {
   const {baseUrl} = useContext(GlobalContext)
   const navigate = useNavigate();
