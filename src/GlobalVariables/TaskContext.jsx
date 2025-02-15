@@ -1,10 +1,8 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
 import { useCookies } from "react-cookie";
 import useAxiosInterceptor from "./useAxiousInterceptor";
 
-
-const TaskContext = createContext(null);
+const TaskContext = createContext();
 
 export const TaskProvider =({children})=>{
      const [tasks, setTasks] = useState([]);
@@ -13,7 +11,7 @@ export const TaskProvider =({children})=>{
 
      useEffect(() => {
       fetchTasks();
-    }, []);
+    }, [axiousInstance]);
 
        const fetchTasks = async () => {
         try {

@@ -4,7 +4,6 @@ import { MdDateRange } from "react-icons/md";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";  // Import for navigation
-import axios from "axios";
 import useAxiosInterceptor from "../../GlobalVariables/useAxiousInterceptor";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,13 +26,8 @@ const Profile = () => {
       navigate("/login");
       return;
     }
-  
-    console.log("Token:", cookies.auth_token); // 🔍 Debugging: See if the token exists
-  
     try {
       const decoded = jwtDecode(cookies.auth_token);
-      console.log("Decoded Token:", decoded); // 🔍 Debugging: Check decoded token
-  
       if (decoded) {
         setProfileData({
           name: decoded.username || "User",
@@ -45,7 +39,7 @@ const Profile = () => {
       }
     } catch (error) {
       console.error("Error decoding token:", error);
-      navigate("/login"); // Redirect if decoding fails
+      navigate("/login"); 
     }
   }, [cookies, navigate]);
   

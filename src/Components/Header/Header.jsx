@@ -15,7 +15,7 @@ const Header = () => {
             <span
               className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-[#FFF5F5]"
             >
-              PlanItRight
+             Taskito Planner
             </span>
           </div>
         </div>
