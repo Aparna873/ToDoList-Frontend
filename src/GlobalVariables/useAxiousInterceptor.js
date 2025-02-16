@@ -37,7 +37,7 @@ const useAxiosInterceptor = () => {
       axios.interceptors.request.eject(requestInterceptor);
       axios.interceptors.response.eject(responseInterceptor);
     };
-  }, [navigate, removeCookie, cookies.auth_token,baseUrl]);
+  }, [navigate, removeCookie,baseUrl]);
 
   return axios;
 };
