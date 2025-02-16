@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { GlobalContext } from "./GlobalContext";
 
 const useAxiosInterceptor = () => {
-  const {baseUrl} = useContext(GlobalContext);
+  const { baseUrl } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies(["auth_token"]);
 
@@ -19,14 +19,15 @@ const useAxiosInterceptor = () => {
       return config;
     });
 
-    // Add a response interceptor to handle 401 errors
     const responseInterceptor = axios.interceptors.response.use(
       (response) => response,
-      async (error) => {
+      (error) => {
         if (error.response && error.response.status === 401) {
-          console.log("401 Unauthorized: Removing token and redirecting to login...");
-          await removeCookie("auth_token", { path: "/" }); // Remove the cookie
-          navigate("/login"); // Redirect to login page
+          console.log(
+            "401 Unauthorized: Removing token and redirecting to login..."
+          );
+          removeCookie("auth_token", { path: "/" });
+          navigate("/login");
         }
         return Promise.reject(error);
       }
@@ -37,7 +38,7 @@ const useAxiosInterceptor = () => {
       axios.interceptors.request.eject(requestInterceptor);
       axios.interceptors.response.eject(responseInterceptor);
     };
-  }, [navigate, removeCookie,baseUrl]);
+  }, [navigate, removeCookie, baseUrl]);
 
   return axios;
 };
