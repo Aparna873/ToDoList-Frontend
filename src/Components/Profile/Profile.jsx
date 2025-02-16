@@ -48,7 +48,7 @@ const Profile = () => {
     const fetchAvatar = async () => {
       try {
         const response = await axiousInstance.get(
-          "http://localhost:3000/api/profile/getAvatar",
+          "/api/profile/getAvatar",
           {
             headers: {
               Authorization: `Bearer ${cookies.auth_token}`,
@@ -76,7 +76,7 @@ const Profile = () => {
 
         try {
           const response = await axiousInstance.put(
-            "http://localhost:3000/api/profile/updateAvatar",
+            "/api/profile/updateAvatar",
             formData,
             {
               headers: {

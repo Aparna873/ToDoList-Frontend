@@ -32,7 +32,7 @@ const Login = () => {
         setIsLoading(true);
         try 
         {
-            const response = await axiosInstance.post(`${baseUrl}/api/auth/login`, formData);
+            const response = await axiosInstance.post(`/api/auth/login`, formData);
             if (response.data.token) {
                 setCookie('auth_token', response.data.token, { path: '/', maxAge: 604800 });
                 setCookie('user_Id', response.data.userId, { path: '/', maxAge: 604800 });

@@ -15,7 +15,7 @@ export const TaskProvider =({children})=>{
 
        const fetchTasks = async () => {
         try {
-          const response = await axiousInstance.get("http://localhost:3000/api/tasks/tasks", {
+          const response = await axiousInstance.get("/api/tasks/tasks", {
             headers: { Authorization: `Bearer ${cookies.auth_token}` },
           });
           setTasks(
@@ -37,7 +37,7 @@ export const TaskProvider =({children})=>{
       const addTask = async (task, date,category,priority,status) => {
         try {
           const response = await axiousInstance.post(
-            "http://localhost:3000/api/tasks/task",
+            "/api/tasks/task",
             { task, date: date.toISOString() , category,priority,status},
             { headers: { Authorization: `Bearer ${cookies.auth_token}` } }
           );
@@ -53,7 +53,7 @@ export const TaskProvider =({children})=>{
       
       const removeTask = async (taskId) => {
         try {
-          await axiousInstance.delete(`http://localhost:3000/api/tasks/task/${taskId}`, {
+          await axiousInstance.delete(`/api/tasks/task/${taskId}`, {
             headers: { Authorization: `Bearer ${cookies.auth_token}` },
           });
       
@@ -66,7 +66,7 @@ export const TaskProvider =({children})=>{
       const updateStatus = async (taskId, newStatus) => {
         try {
           const response = await axiousInstance.put(
-            `http://localhost:3000/api/tasks/taskUpdateStatus/${taskId}`,
+            `/api/tasks/taskUpdateStatus/${taskId}`,
             { status: newStatus },
             {
               headers: {

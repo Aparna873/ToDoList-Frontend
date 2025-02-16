@@ -40,7 +40,7 @@ const Register = () => {
         setIsLoading(true);
         setMessage('');
         try {
-            const response = await axiosInstance.post(`${baseUrl}/api/auth/register`, formData);
+            const response = await axiosInstance.post(`/api/auth/register`, formData);
             setMessage(response.data.message || 'Registration successful!');
             setFormData({
                 username: '',
