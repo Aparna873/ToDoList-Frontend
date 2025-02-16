@@ -2,7 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { GlobalContext } from "../App";
+import { GlobalContext } from "./GlobalContext";
 
 const useAxiosInterceptor = () => {
   const {baseUrl} = useContext(GlobalContext);

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from '../../App';
+import { GlobalContext } from '../../GlobalVariables/GlobalContext';
 import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
 
 const Register = () => {
@@ -10,7 +10,7 @@ const Register = () => {
         password: '',
         confirmPassword: '',
     });
-    const {baseUrl} = useContext(GlobalContext)
+    const {baseUrl} = useContext()
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');

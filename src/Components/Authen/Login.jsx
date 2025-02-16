@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from '../../App';
+import { GlobalContext } from '../../GlobalVariables/GlobalContext';
 import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
 
 const Login = () => {
@@ -13,13 +13,12 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const [cookies, setCookie] = useCookies(['auth_token', 'user_Id']);
+    const [ setCookie] = useCookies(['auth_token', 'user_Id']);
     const {baseUrl} = useContext(GlobalContext)
     const axiousInstance = useAxiosInterceptor();
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.email || !formData.password) {
