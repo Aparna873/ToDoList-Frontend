@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { GlobalContext } from "../App";
 
 const useAxiosInterceptor = () => {
-  const {baseUrl} = useContext(GlobalContext)
+  const {baseUrl} = useContext(GlobalContext);
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies(["auth_token"]);
 

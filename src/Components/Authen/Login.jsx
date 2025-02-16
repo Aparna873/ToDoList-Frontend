@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
@@ -9,12 +8,12 @@ const Login = () => {
         email: '',
         password: ''
     });
-    const axiousInstance = useAxiosInterceptor();
+    const axiosInstance = useAxiosInterceptor();
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const [cookies, setCookie] = useCookies(['auth_token','user_Id']); // Ensure consistent naming
+    const [cookies, setCookie] = useCookies(['auth_token', 'user_Id']);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,24 +21,22 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.email || !formData.password) 
-        {
+        if (!formData.email || !formData.password) {
             setMessage('Please fill in all fields');
             return;
         }
         setIsLoading(true);
-        try 
-        {
-            const response = await axiousInstance.post('http://localhost:3000/api/auth/login', formData);
+        try {
+            const response = await axiosInstance.post('/api/auth/login', formData);
             if (response.status === 200) {
                 setCookie('auth_token', response.data.token, { path: '/', maxAge: 604800 });
                 setCookie('user_Id', response.data.userId, { path: '/', maxAge: 604800 });
                 setMessage(response.data.message || 'Login successful!');
-                setTimeout(() => navigate('/'), 2000); // Redirect to the Dashboard page
+                setTimeout(() => navigate('/'), 2000);
             }
             setFormData({ email: '', password: '' });
-        } catch (error) 
-        {
+        } catch (error) {
+            console.error('Login error:', error);
             if (error.response) {
                 setMessage(error.response.data.message || 'An error occurred during login');
             } else if (error.request) {
@@ -47,8 +44,7 @@ const Login = () => {
             } else {
                 setMessage('An unexpected error occurred.');
             }
-        } finally 
-        {
+        } finally {
             setIsLoading(false);
         }
     };
@@ -88,6 +84,7 @@ const Login = () => {
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                                aria-label={showPassword ? 'Hide password' : 'Show password'}
                             >
                                 {showPassword ? '👁️' : '👁️‍🗨️'}
                             </button>
