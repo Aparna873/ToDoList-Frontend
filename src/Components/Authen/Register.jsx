@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
 import { GlobalContext } from '../../App';
 
 const Register = () => {
@@ -10,7 +9,6 @@ const Register = () => {
         password: '',
         confirmPassword: '',
     });
-    const axiousInstance = useAxiosInterceptor();
     const {baseUrl} = useContext(GlobalContext)
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +38,7 @@ const Register = () => {
         setIsLoading(true);
         setMessage('');
         try {
-            const response = await axiousInstance.post('${baseUrl}/api/auth/register', formData);
+            const response = await axiousInstance.post(`${baseUrl}/api/auth/register`, formData);
             setMessage(response.data.message || 'Registration successful!');
             setFormData({
                 username: '',

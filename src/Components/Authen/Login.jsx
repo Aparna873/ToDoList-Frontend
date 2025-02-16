@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
 import { GlobalContext } from '../../App';
 
 const Login = () => {
@@ -9,7 +8,6 @@ const Login = () => {
         email: '',
         password: ''
     });
-    const axiosInstance = useAxiosInterceptor();
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
@@ -28,7 +26,7 @@ const Login = () => {
         }
         setIsLoading(true);
         try {
-            const response = await axiosInstance.post('${baseUrl}/api/auth/login', formData);
+            const response = await axiosInstance.post(`${baseUrl}/api/auth/login`, formData);
             if (response.status === 200) {
                 setCookie('auth_token', response.data.token, { path: '/', maxAge: 604800 });
                 setCookie('user_Id', response.data.userId, { path: '/', maxAge: 604800 });
