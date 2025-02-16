@@ -21,6 +21,9 @@ const Login = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+     const navigateRegister =()=>{
+     navigate("/register");
+     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,7 +57,7 @@ const Login = () => {
             setIsLoading(false);
         }
     };
-
+     
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
@@ -110,9 +113,12 @@ const Login = () => {
                 )}
                 <p className="text-sm text-center text-gray-600 mt-4">
                     Don't have an account?{' '}
-                    <a href="/register" className="text-blue-500 hover:underline">
+                    <span className="text-blue-500 hover:underline" onClick={navigateRegister}>
                         Register here
-                    </a>
+                    </span>
+                    {/* <a href="/register" className="text-blue-500 hover:underline">
+                        Register here
+                    </a> */}
                 </p>
             </div>
         </div>
