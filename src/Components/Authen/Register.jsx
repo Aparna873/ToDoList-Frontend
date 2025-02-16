@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
+import { GlobalContext } from '../../App';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -9,7 +10,8 @@ const Register = () => {
         password: '',
         confirmPassword: '',
     });
-    const axiosInstance = useAxiosInterceptor();
+    const axiousInstance = useAxiosInterceptor();
+    const {baseUrl} = useContext(GlobalContext)
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
@@ -38,7 +40,7 @@ const Register = () => {
         setIsLoading(true);
         setMessage('');
         try {
-            const response = await axiosInstance.post('/api/auth/register', formData);
+            const response = await axiousInstance.post('${baseUrl}/api/auth/register', formData);
             setMessage(response.data.message || 'Registration successful!');
             setFormData({
                 username: '',
@@ -48,13 +50,11 @@ const Register = () => {
             });
             setTimeout(() => navigate('/login'), 2000);
         } catch (error) {
-            console.error('Registration error:', error);
             setMessage(error.response?.data?.message || 'An error occurred during registration.');
         } finally {
             setIsLoading(false);
         }
     };
-
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
@@ -106,7 +106,6 @@ const Register = () => {
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
-                                aria-label={showPassword ? 'Hide password' : 'Show password'}
                             >
                                 {showPassword ? '👁️' : '👁️‍🗨️'}
                             </button>

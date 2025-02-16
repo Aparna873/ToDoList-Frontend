@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
+import { GlobalContext } from '../../App';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -14,7 +15,7 @@ const Login = () => {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const [cookies, setCookie] = useCookies(['auth_token', 'user_Id']);
-
+    const {baseUrl} = useContext(GlobalContext)
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -27,7 +28,7 @@ const Login = () => {
         }
         setIsLoading(true);
         try {
-            const response = await axiosInstance.post('/api/auth/login', formData);
+            const response = await axiosInstance.post('${baseUrl}/api/auth/login', formData);
             if (response.status === 200) {
                 setCookie('auth_token', response.data.token, { path: '/', maxAge: 604800 });
                 setCookie('user_Id', response.data.userId, { path: '/', maxAge: 604800 });
