@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
+import { GlobalContext } from '../../GlobalVariables/GlobalContext';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -9,11 +10,12 @@ const Login = () => {
         password: ''
     });
     const axiosInstance = useAxiosInterceptor();
+    const {baseUrl} = useContext(GlobalContext);
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const [cookies, setCookie] = useCookies(['auth_token','user_Id']); // Ensure consistent naming
+    const [setCookie] = useCookies(['auth_token','user_Id']); // Ensure consistent naming
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,7 +31,7 @@ const Login = () => {
         setIsLoading(true);
         try 
         {
-            const response = await axiosInstance.post('http://localhost:3000/api/auth/login', formData);
+            const response = await axiosInstance.post(`${baseUrl}/api/auth/login`, formData);
             if (response.status === 200) {
                 setCookie('auth_token', response.data.token, { path: '/', maxAge: 604800 });
                 setCookie('user_Id', response.data.userId, { path: '/', maxAge: 604800 });

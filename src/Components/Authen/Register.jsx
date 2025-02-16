@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAxiosInterceptor from '../../GlobalVariables/useAxiousInterceptor';
+import { GlobalContext } from '../../GlobalVariables/GlobalContext';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const Register = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
+    const {baseUrl} = useContext(GlobalContext);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,7 +40,7 @@ const Register = () => {
         setIsLoading(true);
         setMessage('');
         try {
-            const response = await axiosInstance.post('http://localhost:3000/api/auth/register', formData);
+            const response = await axiosInstance.post(`${baseUrl}/api/auth/register`, formData);
             setMessage(response.data.message || 'Registration successful!');
             setFormData({
                 username: '',
