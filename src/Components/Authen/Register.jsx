@@ -9,7 +9,7 @@ const Register = () => {
         password: '',
         confirmPassword: '',
     });
-    const axiousInstance = useAxiosInterceptor();
+    const axiosInstance = useAxiosInterceptor();
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
@@ -38,7 +38,7 @@ const Register = () => {
         setIsLoading(true);
         setMessage('');
         try {
-            const response = await axiousInstance.post('http://localhost:3000/api/auth/register', formData);
+            const response = await axiosInstance.post('http://localhost:3000/api/auth/register', formData);
             setMessage(response.data.message || 'Registration successful!');
             setFormData({
                 username: '',
