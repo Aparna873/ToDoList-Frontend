@@ -10,7 +10,7 @@ const Register = () => {
         password: '',
         confirmPassword: '',
     });
-    const {baseUrl} = useContext()
+    const {baseUrl} = useContext(GlobalContext)
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
