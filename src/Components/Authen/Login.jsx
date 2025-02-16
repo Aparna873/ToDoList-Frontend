@@ -15,7 +15,8 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const [setCookie] = useCookies(['auth_token','user_Id']); // Ensure consistent naming
+    const [, setCookie] = useCookies(['auth_token', 'user_Id']);
+    // Ensure consistent naming
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,11 +33,11 @@ const Login = () => {
         try 
         {
             const response = await axiosInstance.post(`${baseUrl}/api/auth/login`, formData);
-            if (response.status === 200) {
+            if (response.data.token) {
                 setCookie('auth_token', response.data.token, { path: '/', maxAge: 604800 });
                 setCookie('user_Id', response.data.userId, { path: '/', maxAge: 604800 });
                 setMessage(response.data.message || 'Login successful!');
-                setTimeout(() => navigate('/'), 2000); // Redirect to the Dashboard page
+                navigate('/'); // Redirect to the Dashboard page
             }
             setFormData({ email: '', password: '' });
         } catch (error) 
