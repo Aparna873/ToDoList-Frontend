@@ -26,7 +26,7 @@ const Login = () => {
         }
         setIsLoading(true);
         try {
-            const response = await axiosInstance.post(`${baseUrl}/api/auth/login`, formData);
+            const response = await axios.post(`${baseUrl}/api/auth/login`, formData);
             if (response.status === 200) {
                 setCookie('auth_token', response.data.token, { path: '/', maxAge: 604800 });
                 setCookie('user_Id', response.data.userId, { path: '/', maxAge: 604800 });
